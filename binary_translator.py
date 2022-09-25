@@ -22,10 +22,12 @@ def main():
                 register = input('Input register(32 or 64 bit)(enter is equal to 32):\n')
                 register = int(register) if register else 32
 
-                print(f'result: {getattr(BinaryTranslator, command)(number, register, print_steps)}')
+                print()
+                print(f'result: {getattr(BinaryTranslator, command)(number, register, print_steps)}', sep='\n')
 
             else:
-                print(f'result: {getattr(BinaryTranslator, command)(number, print_steps)}')
+                print()
+                print(f'result: {getattr(BinaryTranslator, command)(number, print_steps)}', sep='\n')
 
         elif command == 'help':
             print('\n'.join(available_commands))
@@ -104,6 +106,8 @@ class BinaryTranslator:
             num = int(number.split('.')[0])
             result = []
 
+            print(f'{num}(dec):')
+
             while num > 0:
                 max_power = floor(log(num, 2))
                 result.append(f'{num} - {2 ** max_power}')
@@ -144,6 +148,9 @@ class BinaryTranslator:
         number = float(number)
         result = ''
 
+        if print_steps:
+            print(f'{number}(dec):')
+
         for i in range(10):
             number = round(number * 2, 3)
 
@@ -152,6 +159,9 @@ class BinaryTranslator:
 
             result += str(int(number >= 1))
             number -= number >= 1
+
+        if print_steps:
+            print()
 
         return result
 
