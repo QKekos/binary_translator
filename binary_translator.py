@@ -41,13 +41,13 @@ def main():
 class BinaryTranslator:
     register = {
         32: {
-            'len': 8,
+            'order_len': 8,
             'mantissa_len': 23,
             'offset': 127
         },
 
         64: {
-            'len': 8,
+            'order_len': 11,
             'mantissa_len': 52,
             'offset': 1023
         },
@@ -198,14 +198,14 @@ class BinaryTranslator:
         sign_bit = number[0]
         number = number[1:]
 
-        order = number[:current_register.get('len')]
+        order = number[:current_register.get('order_len')]
         offset = int(BinaryTranslator.bin_to_dec('0' + order)) - 127
 
         mantissa = (
             '1' +
-            number[current_register.get('len'): current_register.get('len') + offset] +
+            number[current_register.get('order_len'): current_register.get('order_len') + offset] +
             '.' +
-            number[current_register.get('len') + offset:]
+            number[current_register.get('order_len') + offset:]
         )
 
         if print_steps:
